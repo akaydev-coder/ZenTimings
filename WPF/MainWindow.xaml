@@ -78,6 +78,7 @@
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center" />
                     </Button>
+                    
                 </Grid>
             </Border>
 
@@ -107,24 +108,24 @@
 
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Speed" TextAlignment="Right" />
-                            <TextBlock Text="BGS" TextAlignment="Right" />
-                            <TextBlock Text="GDM" TextAlignment="Right" />
+                            <TextBlock Text="BGS" TextAlignment="Right" ToolTip="Bank Group Swap: Wechselt die Art und Weise, wie Anwendungen Speicherplatz zugewiesen werden. Laut AMD: optimieren im Wesentlichen der Leistung in synthetische Workloads (wie Benchmarks oder Rechenanwendungen), wenn es aktiviert ist, oder in Spiele, wenn es deaktiviert ist." />
+                            <TextBlock Text="GDM" TextAlignment="Right" ToolTip="Geardown-Modus: Oberhalb von DDR4-2666 ist der Geardown-Modus (GDM) automatisch aktiviert und erzwingt gerade tCL, tCWL, tRTP, tWR und CR 1T. Wenn Sie ungerade tCL Werte verwenden deaktivieren Sie GDM. Wenn Sie instabil sind, versuchen Sie, CR 2T zu verwenden, aber das kann den Leistungsgewinn durch das Absenken von tCL zunichte machen und kann sogar weniger stabil sein als aktiviertes GDM." />
 
                             <TextBlock Text="" Style="{DynamicResource DividerTextBlock}" />
 
-                            <TextBlock Text="tCL" TextAlignment="Right" />
-                            <TextBlock Text="tRCDWR" TextAlignment="Right" />
-                            <TextBlock Text="tRCDRD" TextAlignment="Right" />
-                            <TextBlock Text="tRP" TextAlignment="Right" />
-                            <TextBlock Text="tRAS" TextAlignment="Right" />
-                            <TextBlock Text="tRC" TextAlignment="Right" />
-                            <TextBlock Text="tRRDS" TextAlignment="Right" />
-                            <TextBlock Text="tRRDL" TextAlignment="Right" />
-                            <TextBlock Text="tFAW" TextAlignment="Right" />
-                            <TextBlock Text="tWTRS" TextAlignment="Right" />
-                            <TextBlock Text="tWTRL" TextAlignment="Right" />
-                            <TextBlock Text="tWR" TextAlignment="Right" />
-                            <TextBlock Text="tRFC (ns)" TextAlignment="Right" />
+                            <TextBlock Text="tCL" TextAlignment="Right" ToolTip="Column Access Strobe (CAS)-Latenz, die Verzoegerung in Taktzyklen zwischen dem Zeitpunkt, zu dem der IMC eine Speicherspalte zum Lesen aktiviert, und dem Zeitpunkt, zu dem die Adresse in der Spalte tatsaechlich gelesen wird. Im Wesentlichen geht es darum, wie schnell die Leseverstaerker arbeiten. Dies ist vermutlich das wichtigste Timing, da das CAS, d. h. der Strobe-Kondensator, (irgendwie) zuletzt aktiviert wird und nur dann Daten gelesen werden koennen. Ein niedrigeres tCL bedeutet also weniger Zyklen zwischen dem Zeitpunkt, zu dem die CPU Daten anfordert, und dem tatsaechlichen Lesen der Daten." />
+                            <TextBlock Text="tRCDWR" TextAlignment="Right" ToolTip="Row Address Strobe (RAS) to Column Address Strobe (CAS) Delay (Write). Die Verzoegerung zwischen der Aktivierung einer Zeilenadresse und der Aktivierung einer Spaltenadresse zum Schreiben. Dies ist die Geschwindigkeit, mit der Daten aus dem RAM an die Leseverstaerker uebertragen werden. Der Grund, warum dieses Timing so wichtig ist, aehnelt dem von tCL: Es ist die Anzahl der Zyklen zwischen der Aktivierung einer Zeile und der Aktivierung einer Spalte, so dass ein niedrigeres tRCDWR eine geringere Verzoegerung vor dem Schreiben bedeutet." />
+                            <TextBlock Text="tRCDRD" TextAlignment="Right" ToolTip="Row Address Strobe (RAS) to Column Address Strobe (CAS) Delay (Read). Die Verzoegerung zwischen der Aktivierung einer Zeilenadresse und der Aktivierung einer Spaltenadresse zum Schreiben. Dies ist die Geschwindigkeit, mit der Daten aus dem RAM an die Leseverstaerker uebertragen werden. Der Grund, warum dieses Timing so wichtig ist, aehnelt dem von tCL: Es ist die Anzahl der Zyklen zwischen der Aktivierung einer Zeile und der Aktivierung einer Spalte, so dass ein niedrigeres tRCDRD eine geringere Verzoegerung vor dem Schreiben bedeutet." />
+                            <TextBlock Text="tRP" TextAlignment="Right" ToolTip="Zeilenvorladezeit. Die Zeit, die benoetigt wird, um eine Speicherzeile zu deaktivieren (vorzuladen) und eine neue Speicherzeile (auf demselben Rang) zu aktivieren. Dies ist die Geschwindigkeit, mit der die Daten von den Leseverstaerkern zurueck zu den Zellen uebertragen werden. Man kann sich dies im Wesentlichen als &quot;Abkuehlung&quot; zwischen Speicheroperationen auf demselben Rang oder derselben Seite eines DIMM vorstellen. (Nebenbei bemerkt: Rang = Seite muss nicht unbedingt zutreffen, insbesondere bei 4 oder mehr DIMMs)." />
+                            <TextBlock Text="tRAS" TextAlignment="Right" ToolTip="RAS-Aktivzeit. Die Mindestzeit zwischen der Aktivierung einer Speicherzeile und dem Vorladen. Dies ist die Anzahl der Zyklen, in denen auf eine Speicherzeile zum Lesen/Schreiben zugegriffen werden kann. Wie der Name schon sagt, geht es darum, wie lange der RAS-Kondensator aktiv bleibt, sobald er ein Signal vom IMC erhaelt." />
+                            <TextBlock Text="tRC" TextAlignment="Right" ToolTip="Zeilenzykluszeit. Die minimale Zeitspanne zwischen Aktivierungsbefehlen an dieselbe Speicherbank. Wie der Name schon sagt, ist dies die Anzahl der Zyklen, die der IMC warten muss, bevor er ein weiteres Aktivierungssignal an eine Speicherbank senden kann." />
+                            <TextBlock Text="tRRDS" TextAlignment="Right" ToolTip="RAS zu RAS Verzoegerung, verschiedene Bankgruppen. Die Verzoegerung zwischen zwei Reihenaktivierungen in verschiedenen Bankgruppen. Sobald eine Reihe in einer Bankgruppe aktiviert ist, muss der IMC so viele Zyklen warten, bevor eine Reihe in einer anderen Bankgruppe aktiviert werden kann." />
+                            <TextBlock Text="tRRDL" TextAlignment="Right" ToolTip="RAS-zu-RAS-Verzoegerung, dieselbe Bankgruppe. Die Verzoegerung zwischen zwei Reihenaktivierungen innerhalb einer Bankgruppe. Wie Sie wahrscheinlich erraten koennen, ist dies dasselbe wie tRRDS, aber in Bezug auf eine einzelne Bankgruppe anstelle von mehreren Bankgruppen." />
+                            <TextBlock Text="tFAW" TextAlignment="Right" ToolTip="Four Activate Window: Die Zeitspanne, in der vier Zeilenaktivierungen innerhalb desselben Ranks erfolgen koennen. Selbsterklaerend: Wenn der IMC auf vier verschiedene Speicherzeilen innerhalb eines Ranks eines DIMM zugreifen muss, benoetigt er dafuer tFAW-Zyklen." />
+                            <TextBlock Text="tWTRS" TextAlignment="Right" ToolTip="Schreib-Lese-Verzoegerung, verschiedene Bankgruppen. Die Verzoegerung zwischen einem erfolgreichen Schreibbefehl und einem Lesebefehl ueber verschiedene Bankgruppen hinweg. Sobald ein Schreibbefehl fuer eine Speicheradresse abgeschlossen wurde, ist dies die Anzahl der Zyklen, bevor ein Lesebefehl fuer eine Zeile in einer anderen Bankgruppe ausgefuehrt werden kann." />
+                            <TextBlock Text="tWTRL" TextAlignment="Right" ToolTip="Schreib-Lese-Verzoegerung, gleiche Bankgruppe. Die Verzoegerung zwischen einem erfolgreichen Schreibbefehl und einem Lesebefehl innerhalb einer Bankgruppe. Genau wie bei tRRDS und tRRDL besteht der einzige Unterschied zu tWTRS darin, um welche Bankgruppen es sich handelt." />
+                            <TextBlock Text="tWR" TextAlignment="Right" ToolTip="Schreibwiederherstellungszeit. Die Verzoegerung zwischen einem erfolgreichen Schreibbefehl und dem Vorladen der aktiven Bank. Nach Abschluss eines Schreibbefehls an eine Speicheradresse dauert es so viele Zyklen, bis die Bank (nicht nur die Zeile), die diese Adresse enthaelt, deaktiviert wird." />
+                            <TextBlock Text="tRFC (ns)" TextAlignment="Right" ToolTip="Auffrischungs-Zykluszeit. Die Zeitspanne zwischen einem Auffrischungsbefehl und einem Aktivierungsbefehl, der vom DRAM ausgefuehrt wird. Auffrischungsbefehle sind die Besonderheit von DRAM. Dabei wird ein Speicherabschnitt gelesen und die Daten werden sofort wieder an dieselben Adressen geschrieben. Durch die Auffrischung eines Speicherabschnitts wird verhindert, dass er durch Leckage physisch verloren geht. Wie auch immer, dies ist die Anzahl der Zyklen, nachdem ein Auffrischungsbefehl erteilt wurde, bevor eine Zeile (dieses Abschnitts?) des Speichers wieder gelesen werden kann." />
                             <TextBlock Text="tRFC" TextAlignment="Right" />
                             <TextBlock Text="tRFC2" TextAlignment="Right" />
                             <TextBlock Text="tRFC4"
@@ -133,10 +134,10 @@
                             <TextBlock Text="tRFCsb"
                                        TextAlignment="Right"
                                        Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}"/>
-                            <TextBlock Text="tMOD" TextAlignment="Right" />
-                            <TextBlock Text="tMODPDA" TextAlignment="Right" />
-                            <TextBlock Text="tPHYWRD" TextAlignment="Right" />
-                            <TextBlock Text="tPHYWRL" TextAlignment="Right" />
+                            <TextBlock Text="tMOD" TextAlignment="Right" ToolTip="Verzoegerung zwischen MRS-Befehlen (Mode Register Set) und Nicht-MRS-Befehlen. DRAM-Module enthalten einen Speicherbereich, der als Modusregister bezeichnet wird, und dieser scheint etwas mit dem Leistungsstatus zu tun zu haben. Zumindest scheint dieses Timing mit tCKE, ProcODT und RTT_NOM zu tun zu haben. Genauer gesagt scheint sich der CKE-Zustand (LOW/HIGH) nur dann zu aendern, wenn bestimmte Parameter fuer mindestens tMOD + tMRD-Taktzyklen erfuellt sind." />
+                            <TextBlock Text="tMODPDA" TextAlignment="Right" ToolTip="Verzoegerung zwischen MRS-Befehl und Nicht-MRS-Befehl, je DRAM-Adressierbarkeitsmodus. Dasselbe wie oben bezueglich tMOD. Der Modus &quot;Per DRAM Addressability Mode&quot; (PDA) scheint einen einzigen MRS-Wert ueber ein DIMM hinweg zu speichern, was mit der Verhinderung von Datenverschlechterung zu tun haben duerfte." />
+                            <TextBlock Text="tPHYWRD" TextAlignment="Right" ToolTip="Zusammenhang zwischen Digital-zu-Analog-Mikrocontroller, der als PHY-Chip bezeichnet wird und im Ryzen-SoC zu finden ist. Dieses Timing scheint auch mit Schreibvorgaengen zu tun zu haben." />
+                            <TextBlock Text="tPHYWRL" TextAlignment="Right" ToolTip="Zusammenhang zwischen Digital-zu-Analog-Mikrocontroller, der als PHY-Chip bezeichnet wird und im Ryzen-SoC zu finden ist. Dieses Timing scheint auch mit Schreibvorgaengen zu tun zu haben." />
                             <!--TextBlock Text="tXP"
                                        TextAlignment="Right"
                                        Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}"/-->
@@ -211,31 +212,31 @@
 
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Capacity" TextAlignment="Right" />
-                            <TextBlock Text="BGS Alt" TextAlignment="Right" />
-                            <TextBlock Text="Cmd2T" TextAlignment="Right" />
+                            <TextBlock Text="BGS Alt" TextAlignment="Right" ToolTip="Bank Group Swap Alternative" />
+                            <TextBlock Text="CR" TextAlignment="Right" ToolTip="Befehlsrate. Die Anzahl der aufeinanderfolgenden Taktzyklen, in denen Befehle an den DRAM gesendet werden muessen, um sicherzustellen, dass der Befehl ausgefuehrt wird. Bei einem Wert von 1T sendet der IMC jeden Befehl einmal an den Speicher; bei 2T sendet der IMC jeden Befehl zweimal hintereinander. Daher sollte es ziemlich intuitiv sein, dass eine Befehlsrate von 2T zur OC-Stabilitaet beitragen kann: Wenn es irgendein Problem damit gibt, dass der Speicher den im ersten Signal gesendeten Befehl nicht empfaengt/ausfuehrt, hat er eine zweite Chance." />
 
                             <TextBlock Text="" Style="{DynamicResource DividerTextBlock}" />
 
-                            <TextBlock Text="tRDRDSCL" TextAlignment="Right" />
-                            <TextBlock Text="tWRWRSCL" TextAlignment="Right" />
-                            <TextBlock Text="tCWL" TextAlignment="Right" />
-                            <TextBlock Text="tRTP" TextAlignment="Right" />
-                            <TextBlock Text="tRDWR" TextAlignment="Right" />
-                            <TextBlock Text="tWRRD" TextAlignment="Right" />
-                            <TextBlock Text="tRDRDSC" TextAlignment="Right" />
-                            <TextBlock Text="tRDRDSD" TextAlignment="Right" />
-                            <TextBlock Text="tRDRDDD" TextAlignment="Right" />
-                            <TextBlock Text="tWRWRSC" TextAlignment="Right" />
-                            <TextBlock Text="tWRWRSD" TextAlignment="Right" />
-                            <TextBlock Text="tWRWRDD" TextAlignment="Right" />
-                            <TextBlock Text="tCKE" TextAlignment="Right" />
+                            <TextBlock Text="tRDRDSCL" TextAlignment="Right" ToolTip="&quot;CAS Read to CAS Read&quot; Verzoegerungszeit derselben Bankgruppe" />
+                            <TextBlock Text="tWRWRSCL" TextAlignment="Right" ToolTip="&quot;CAS Write to CAS Write &quot; Verzoegerungszeit derselben Bankgruppe." />
+                            <TextBlock Text="tCWL" TextAlignment="Right" ToolTip="CAS-Schreib-Latenzzeit. Die Verzoegerung zwischen der Aktivierung einer Speicherspalte durch den IMC und der Ausfuehrung eines Schreibbefehls. Obwohl nicht in der Timing-Abkuerzung enthalten, steuert tCL speziell Lesevorgaenge; dieses Timing ist also nur tCL, aber fuer Schreibvorgaenge. (Ich bin mir nicht sicher, warum es nicht so wichtig ist wie tCL...) Laut AMD hat dieses Timing grosse Auswirkungen auf die Stabilitaet, was wiederum Sinn macht, da es mit dem beruehmten tCL zusammenhaengt." />
+                            <TextBlock Text="tRTP" TextAlignment="Right" ToolTip="Verzoegerung zwischen Lesen und Vorladen. Die Verzoegerung zwischen einem Lesebefehl und dem Vorladen einer Zeile im selben Rang. Dies ist die minimale Anzahl von Zyklen zwischen dem Lesen einer Speicherzeile und der Deaktivierung einer anderen Zeile im selben Speicherrang." />
+                            <TextBlock Text="tRDWR" TextAlignment="Right" ToolTip="Abstand zwischen Lese- und Schreibbefehlen. Die Anzahl der Turn-Around-Takte zwischen einem Lesebefehl und einem Schreibbefehl auf demselben Rank. Dabei handelt es sich um die Anzahl der Zyklen, die vergehen muessen, nachdem ein Lesebefehl an eine Speicheradresse gesendet wurde, bevor der IMC einen Schreibbefehl an eine andere Adresse auf demselben Rang eines DIMMs senden kann. Nach Angaben von AMD hat dieses Timing einen grossen Einfluss auf den Durchsatz." />
+                            <TextBlock Text="tWRRD" TextAlignment="Right" ToolTip="Abstand zwischen Schreib- und Lesebefehlen. Die Zeitspanne, die zwischen einem Schreibbefehl und einem Lesebefehl auf demselben Rank verstreicht. Dies ist im Grunde tRDWR, aber nach einem Schreibbefehl und vor einem Lesebefehl statt umgekehrt. Laut AMD hat dieses Timing einen grossen Einfluss auf den Durchsatz." />
+                            <TextBlock Text="tRDRDSC" TextAlignment="Right" ToolTip="Read to Read Different Bank Group" />
+                            <TextBlock Text="tRDRDSD" TextAlignment="Right" ToolTip="Read to Read different Ranks of Same DIMM" />
+                            <TextBlock Text="tRDRDDD" TextAlignment="Right" ToolTip="Read to Read Different DIMM same Channel" />
+                            <TextBlock Text="tWRWRSC" TextAlignment="Right" ToolTip="Write to Write Different Bank Group" />
+                            <TextBlock Text="tWRWRSD" TextAlignment="Right" ToolTip="Write to Write different Ranks of Same DIMM" />
+                            <TextBlock Text="tWRWRDD" TextAlignment="Right" ToolTip="Write to Write Different DIMM same Channel" />
+                            <TextBlock Text="tCKE" TextAlignment="Right" ToolTip="Takt-Freigabezeit. Die Mindestzeit, die ein CKE-Impuls benoetigt, um aufzutreten. Ein CKE-Impuls aendert den Energiezustand eines DIMMs. Es gibt zwei Arten: CKE LOW und CKE HIGH. CKE LOW versetzt das DIMM fuer die Dauer eines Taktzyklus in den Powerdown-Modus, waehrend CKE HIGH das DIMM fuer den Rest eines Zyklus aus dem Powerdown-Modus herausfuehrt. CKE LOW verhindert, dass der Speicher unerwuenschte Befehle empfaengt (d.h. er wird in einen Idle-Zustand versetzt), waehrend CKE HIGH dem Speicher erlaubt, alle Befehle vom IMC zu empfangen (d.h. er wird in einen aktiven Zustand versetzt)." />
                             <TextBlock Text="tREFI" TextAlignment="Right" />
                             <TextBlock Text="tREFI (ns)" TextAlignment="Right" />
-                            <TextBlock Text="tSTAG" TextAlignment="Right" />
-                            <TextBlock Text="tMRD" TextAlignment="Right" />
-                            <TextBlock Text="tMRDPDA" TextAlignment="Right" />
-                            <TextBlock Text="tPHYRDL" TextAlignment="Right" />
-                            <TextBlock Text="PowerDown" TextAlignment="Right" />
+                            <TextBlock Text="tSTAG" TextAlignment="Right" ToolTip="Subrefresh Staggering Delay. Mit tREF verwandt zu sein, da es hier um die Staffelung von Speicherauffrischungsbefehlen geht, um die Anzahl der Speicheradressen, die zu einem bestimmten Zeitpunkt aufgefrischt werden, zu minimieren." />
+                            <TextBlock Text="tMRD" TextAlignment="Right" ToolTip="Modus Register Set Befehlszykluszeit" />
+                            <TextBlock Text="tMRDPDA" TextAlignment="Right" ToolTip="Modusregister Set-Befehlszykluszeit, pro DRAM-Adressierbarkeitsmodus" />
+                            <TextBlock Text="tPHYRDL" TextAlignment="Right" ToolTip="Zusammenhang zwischen Digital-zu-Analog-Mikrocontroller, der als PHY-Chip bezeichnet wird und im Ryzen-SoC zu finden ist. Dieses Timing scheint auch mit Lesevorgaengen zu tun zu haben." />
+                            <TextBlock Text="PowerDown" TextAlignment="Right" ToolTip="Senkt VDIMM, wenn sich das System im Leerlauf befindet. Dies kann ein wenig Strom sparen, kann aber Berichten zufolge zu Stabilitaetsproblemen fuehren und die DRAM-Latenzzeit leicht erhoehen." />
                         </StackPanel>
 
                         <StackPanel Grid.Column="1">
@@ -312,35 +313,35 @@
                             <TextBlock x:Name="labelVSOC_SVI2"
                                        Text="VSOC (SVI2)"
                                        TextAlignment="Right"
-                                       Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}"/>
+                                       Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" ToolTip="&quot;System on a Chip&quot;-Spannung. Die Spannung, die durch den SoC-VRM geschickt wird; der SoC enthaelt verschiedene Schnittstellen und Controller, einschliesslich des Speicher-Controllers."/>
                             <TextBlock Text="VSOC (SMU)"
                                        TextAlignment="Right"
                                        Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}"/>
                             
                             <TextBlock Text="CLDO VDDP" TextAlignment="Right"
-                                       IsEnabled="{Binding powerTable.CLDO_VDDP, Mode=OneWay, Converter={StaticResource FloatToBool}}" />
+                                       IsEnabled="{Binding powerTable.CLDO_VDDP, Mode=OneWay, Converter={StaticResource FloatToBool}}" ToolTip="DDR4 PHY Spannung. Die Spannung, mit der der PHY-Chip des SoC versorgt wird. Eine aenderung dieser Spannung erfordert einen kalten Neustart (Herunterfahren, Netzteil fuer einige Sekunden abziehen und dann neu starten). Durch die Anpassung dieser Spannung koennen Speicherloecher behoben werden. Eine Speicherluecke ist ein bestimmter Frequenzbereich, in dem Ihr Speicher nicht laeuft. Zum Beispiel kann ein Kit bei 3400 oder 3600 problemlos booten, aber in der Naehe von 3466 wird es beim POST versagen. Veraendern Sie diese Spannung ein wenig nach unten oder oben (aber nicht ueber 1050 mV), um ein Speicherloch zu beheben. Angeblich ist VDIMM - 100mV ein guter Wert zum Ausprobieren." />
                             <TextBlock Text="VDDG CCD" TextAlignment="Right"
                                        IsEnabled="{Binding powerTable.CLDO_VDDG_CCD, Mode=OneWay, Converter={StaticResource FloatToBool}}" />
                             <TextBlock Text="VDDG IOD" TextAlignment="Right"
-                                       IsEnabled="{Binding powerTable.CLDO_VDDG_IOD, Mode=OneWay, Converter={StaticResource FloatToBool}}" />
+                                       IsEnabled="{Binding powerTable.CLDO_VDDG_IOD, Mode=OneWay, Converter={StaticResource FloatToBool}}" ToolTip="Die meisten cLDO-Spannungen werden ueber die beiden Hauptstromschienen der CPU geregelt. Im Falle von cLDO_VDDG und cLDO_VDDP werden sie von der VDDCR_SoC-Ebene geregelt." />
 
                             <!-- MEM Voltages -->
                             <TextBlock Text="" TextAlignment="Right"  Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}" />
                             <!-- DDR4 -->
-                            <TextBlock x:Name="labelMemVddio" Text="VDIMM" TextAlignment="Right" IsEnabled="{Binding WMIPresent}" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" />
-                            <TextBlock x:Name="labelMemVtt" Text="MEM VTT" TextAlignment="Right" IsEnabled="{Binding WMIPresent}" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" />
+                            <TextBlock x:Name="labelMemVddio" Text="VDIMM" TextAlignment="Right" IsEnabled="{Binding WMIPresent}" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" ToolTip="DRAM-Spannung. Die Spannung, die dem Speicher direkt ueber den Speicher-VRM zugefuehrt wird. Verschiedene Speicher-Kits skalieren mit VDIMM unterschiedlich, so dass sich dies je nach Chip unterschiedlich auf die Speicherstabilitaet auswirkt." />
+                            <TextBlock x:Name="labelMemVtt" Text="MEM VTT" TextAlignment="Right" IsEnabled="{Binding WMIPresent}" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" ToolTip="DDR-Abschlussspannung. Steuert die Impedanz des Speicherbusses. Offensichtlich ist diese Spannung fuer die Aufrechterhaltung der Signalintegritaet nuetzlich und haengt wahrscheinlich mit den Abschlusswiderstaenden zusammen." />
                             <!-- DDR5 -->
                             <TextBlock x:Name="labelMemVdd" Text="MEM VDD" IsEnabled="False" TextAlignment="Right" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}" />
                             <TextBlock x:Name="labelMemVddq" Text="MEM VDDQ" IsEnabled="False" TextAlignment="Right" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}" />
-                            <TextBlock x:Name="labelMemVpp" Text="MEM VPP" IsEnabled="False" TextAlignment="Right" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}" />
+                            <TextBlock x:Name="labelMemVpp" Text="MEM VPP" IsEnabled="{Binding powerTable.VDD_VPP}" TextAlignment="Right" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" ToolTip="Programmier-Leistungsspannung. Wird zur Aktivierung der Wortleitungstransistoren verwendet. Diese Schiene wird verwendet, um den DRAM waehrend des Vorladens mit Strom zu versorgen und so den Stromverbrauch zu senken. Die Voreinstellung ist 2,5 V." />
                             <TextBlock x:Name="labelVddMisc" Text="VDD MISC" IsEnabled="{Binding powerTable.VDD_MISC}" TextAlignment="Right" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}" />
 
                             <TextBlock Text="" TextAlignment="Right" />
-                            <TextBlock x:Name="labelProcODT" Text="ProcOdt" TextAlignment="Right" IsEnabled="False" />
+                            <TextBlock x:Name="labelProcODT" Text="ProcOdt" TextAlignment="Right" IsEnabled="False" ToolTip="Processor On-Die Termination Impedanz. Der Widerstand, mit dem ein Speichersignal auf dem Weg zur CPU abschliesst. Dadurch wird das Signalrauschen reduziert und die ueber- und Unterschreitung der Spannung, mit der das Signal gesendet werden sollte, verringert. Soweit ich weiss, kann ein zu niedriger Wert dazu fuehren, dass das Signalrauschen fehlerhafte Signale an den Speicher sendet, aber ein zu hoher Wert kann dazu fuehren, dass ein Signal absorbiert wird und den Prozessor nicht erreicht. Die Standardeinstellung ist 53,3?." />
                             <!-- DDR4 -->
-                            <TextBlock x:Name="labelRttNom" Text="RttNom" TextAlignment="Right" IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" />
-                            <TextBlock x:Name="labelRttWr" Text="RttWr" TextAlignment="Right"  IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" />
-                            <TextBlock x:Name="labelRttPark" Text="RttPark" TextAlignment="Right"  IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" />
+                            <TextBlock x:Name="labelRttNom" Text="RttNom" TextAlignment="Right" IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" ToolTip="Nominale On-Die-Abschlussimpedanz. Bei hohen ODT-Werten ist dies der Abschlusswiderstand fuer Signale, die an einen Speicherchip gesendet werden, der nicht beschrieben wird, aber mit einem Speicherchip verbunden ist, in den gerade geschrieben wird. Ich glaube, dass dies mit den CKE HIGH-Impulsen zusammenhaengt. Dieser Widerstand kann dazu beitragen, den Verlust der Signalintegritaet zu verhindern, wenn der Speicher keine Schreibbefehle ausfuehrt. Die Werte hierfuer werden ebenfalls in Form von Bruchteilen von RZQ gemessen." />
+                            <TextBlock x:Name="labelRttWr" Text="RttWr" TextAlignment="Right"  IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" ToolTip="Dynamische/schreibende On-Die-Abschlussimpedanz. Dies ist der Widerstand, an dem Signale, die Schreibbefehle an einen Speicherchip senden, enden. Dieser Widerstand kann dazu beitragen, den Verlust der Signalintegritaet zu verhindern, wenn der Speicher Schreibbefehle ausfuehrt. Die Werte hierfuer werden ebenfalls in Form von Bruchteilen von RZQ gemessen." />
+                            <TextBlock x:Name="labelRttPark" Text="RttPark" TextAlignment="Right"  IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" ToolTip="Park On-Die Termination Impedanz. Der Widerstand, bei dem Signale, die an einen Speicherchip gesendet werden, enden, wenn ODT niedrig ist. Dies haengt mit dem CKE LOW/Powerdown-Modus zusammen. Dieser Wert scheint zu gelten, wenn RTT_NOM deaktiviert/ausgeschaltet ist. Dieser Widerstand kann dazu beitragen, den Verlust der Signalintegritaet bei Chips zu verhindern, bei denen der Speicher keine Schreibbefehle ausfuehrt. Die Werte hierfuer werden in Form von Bruchteilen von RZQ gemessen, einem 240?-Referenzwiderstand." />
                             <!-- DDR5 -->
                             <TextBlock x:Name="labelProcCaDs" Text="ProcCaDs" IsEnabled="False" TextAlignment="Right" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}" />
                             <TextBlock x:Name="labelProcDqDs" Text="ProcDqDs" IsEnabled="False" TextAlignment="Right" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}" />
@@ -348,10 +349,10 @@
 
                             <TextBlock Text="" TextAlignment="Right" />
                             <!-- DDR4 -->
-                            <TextBlock x:Name="labelClkDrvStren" Text="ClkDrvStr" TextAlignment="Right" IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" />
-                            <TextBlock x:Name="labelAddrCmdDrvStren" Text="AddrCmdDrvStr" TextAlignment="Right" IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" />
-                            <TextBlock x:Name="labelCsOdtDrvStren" Text="CsOdtDrvStr" TextAlignment="Right" IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" />
-                            <TextBlock x:Name="labelCkeDrvStren" Text="CkeDrvStr" TextAlignment="Right" IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" />
+                            <TextBlock x:Name="labelClkDrvStren" Text="ClkDrvStr" TextAlignment="Right" IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" ToolTip="Staerke/Impedanz der Taktsteuerung. Der Widerstand an den MEMCLK (Speichertakt)-Treiberstiften an der CPU (oder dem Speicher-Controller?). Damit wird die Staerke des Signals eingestellt, das den Speichertakt steuert. Ich glaube, dass dies eine gewisse Auswirkung auf die Stabilisierung der Speicherfrequenz haben sollte, und theoretisch koennen hoehere Werte die Signalqualitaet fuer den entsprechenden Pin verbessern." />
+                            <TextBlock x:Name="labelAddrCmdDrvStren" Text="AddrCmdDrvStr" TextAlignment="Right" IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" ToolTip="Adresse/Befehls-Setup-Zeit. Die Einrichtungszeit fuer die Adress- und Befehlspins der CPU (oder des Speicher-Controllers) in Bezug auf einen Speichertakt. Im Wesentlichen bereitet dies die Adress- und Befehlspins einen Bruchteil eines Speichertaktes vor, bevor ein Lese- oder Schreibbefehl gesendet werden muss. Bei einem Wert von 0 bereiten sich die Pins bei CR=1T um 1/2 Takt vor dem Senden des Befehls vor, bei CR=2T um 1 1/2 Takte vor dem Senden des Befehls. Wird der Wert auf 1 gesetzt, entspricht die Anzahl der Taktzyklen die der Befehlsrate." />
+                            <TextBlock x:Name="labelCsOdtDrvStren" Text="CsOdtDrvStr" TextAlignment="Right" IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" ToolTip="CS/ODT-Einrichtungszeit. Die Setup-Zeit fuer die CS- und ODT-Pins der CPU (oder des Speicher-Controllers) in Bezug auf einen Speichertakt. Bei einem Wert von 0 stellen sich die Pins 1/2 Takt ein, bevor ein Lese- oder Schreibbefehl gesendet wird. Ist der Wert auf 1 gesetzt, so werden sie 1 Takt frueher eingerichtet." />
+                            <TextBlock x:Name="labelCkeDrvStren" Text="CkeDrvStr" TextAlignment="Right" IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" ToolTip="CKE-Setup-Zeit. Die Setup-Zeit fuer die CKE-Pins der CPU (oder des Speicher-Controllers) in Bezug auf einen Speichertakt. Siehe CsOdt(Setup) fuer das Verhalten." />
                             <!-- DDR5 -->
                             <TextBlock x:Name="labelRttNomWr" Text="RttNomWr" TextAlignment="Right" IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}" />
                             <TextBlock x:Name="labelRttNomRd" Text="RttNomRd" TextAlignment="Right" IsEnabled="False" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}" />
@@ -398,7 +399,7 @@
                             <TextBlock x:Name="textBoxMemVtt" Text="N/A" Style="{DynamicResource ValueStyles}" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" />
                             <!-- DDR5 -->
                             <TextBlock x:Name="textBoxMemVddq" Text="N/A" Style="{DynamicResource ValueStyles}" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}" />
-                            <TextBlock x:Name="textBoxMemVpp" Text="N/A" Style="{DynamicResource ValueStyles}" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}" />
+                            <TextBlock x:Name="textBoxMemVpp" Text="N/A" Style="{DynamicResource ValueStyles}" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR4ToBool}}" />
                             <TextBlock x:Name="textBoxVddMisc" Text="{Binding powerTable.VDD_MISC, FallbackValue='N/A', Mode=OneWay, Converter={StaticResource FloatToVoltage}}" Style="{DynamicResource ValueStyles}" Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}" />
 
                             <TextBlock Text="" />
