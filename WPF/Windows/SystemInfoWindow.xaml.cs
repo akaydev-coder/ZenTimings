@@ -19,7 +19,7 @@ namespace ZenTimings.Windows
             public string Value { get; set; }
         }
 
-        public SystemInfoWindow(SystemInfo si, MemoryConfig mc, Resistances mcConfig, AOD.AodData aodData, List<AsusSensorInfo> asusSensors)
+        public SystemInfoWindow(SystemInfo si, MemoryConfig mc, Resistances mcConfig, AodData aodData, List<AsusSensorInfo> asusSensors)
         {
             InitializeComponent();
             Type type = si.GetType();
@@ -85,11 +85,11 @@ namespace ZenTimings.Windows
             else
             {
                 type = aodData.GetType();
-                FieldInfo[] fields = type.GetFields();
+                PropertyInfo[] fields = type.GetProperties();
                 try
                 {
                     items = new List<GridItem>();
-                    foreach (FieldInfo property in fields)
+                    foreach (PropertyInfo property in fields)
                         items.Add(new GridItem() { Name = property.Name, Value = property.GetValue(aodData).ToString() });
 
                     MemControllerGrid.ItemsSource = items;

@@ -21,22 +21,19 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" Margin="15" Grid.ColumnSpan="2">
+        <StackPanel Orientation="Vertical" Margin="15" Grid.ColumnSpan="2" Grid.Row="0" Width="424">
             <!-- TextBlock Text="Changelog" FontSize="14" FontWeight="Bold" Style="{DynamicResource ValueStyles}" Height="auto" HorizontalAlignment="Left" /-->
-            <TextBlock Text="v1.2.9 Dec 21, 2022" FontSize="13" Style="{DynamicResource ValueStyles}" Height="auto" HorizontalAlignment="Left" />
+            <TextBlock Text="v1.31 Dec 7, 2023" FontSize="13" Style="{DynamicResource ValueStyles}" Height="auto" HorizontalAlignment="Left" />
             <TextBlock Text="" />
-            <TextBlock Text=" -  Fixed DRAM speed string syncronization with MCLK" />
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text=" -  Added a workaround for false-postives, see github " />
-                <TextBlock>
-                    <Hyperlink NavigateUri="https://github.com/irusanov/ZenTimings/issues/33" RequestNavigate="Hyperlink_RequestNavigate">
-                        <Run Text="issue 33" />
-                    </Hyperlink>
-                </TextBlock>
-            </StackPanel>
+            <TextBlock Text="  - Add support for Dragon Range (tested on Ryzen 9 7945HX)." TextWrapping="WrapWithOverflow" />
+            <TextBlock Text="  - Add CPU VDDIO reading on DDR5 systems." TextWrapping="WrapWithOverflow" />
+            <TextBlock Text="  - Fix issues with reading power table on some systems." TextWrapping="WrapWithOverflow" />
             <TextBlock Text="" />
+        </StackPanel>
+        <Border Grid.Row="1" Grid.ColumnSpan="2" Margin="15">
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Resources/warning-icon.png" Width="16" VerticalAlignment="Top" />
                 <TextBlock
@@ -44,10 +41,10 @@
                     Margin="5 0 0 0"
                     Visibility="{Binding timings.Type, Mode=OneWay, Converter={StaticResource DDR5ToBool}}"
                     TextWrapping="Wrap"
-                    Text="Please be aware that the current version is not capable of detecting DRAM Overvoltage mode. As a result, the readings for MEM VDD and MEM VDDQ may not be accurate." Width="329" />
+                    Text="Please be aware that the current version is not capable of detecting DRAM Overvoltage mode. As a result, the readings for MEM VDD and MEM VDDQ may not be accurate." MaxWidth="400" />
             </StackPanel>
-        </StackPanel>
-        <Border Grid.Row="1" Padding="4 10" Grid.ColumnSpan="2">
+        </Border>
+        <Border Padding="4 10" Grid.ColumnSpan="2" Grid.Row="2">
             <Button x:Name="Changelog_Close" Content="Close" Width="80" IsCancel="True" />
         </Border>
     </Grid>

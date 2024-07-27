@@ -67,26 +67,31 @@ namespace ZenTimings
                 }
                 else if (cpu.info.codeName.Equals(Cpu.CodeName.Unsupported))
                 {
-                    throw new ApplicationException("CPU model is not supported.\nPlease run a debug report and send to the developer.");
-                }
-               /* else if (cpu.info.codeName.Equals(Cpu.CodeName.Rembrandt) && !settings.NotifiedRembrandt.Equals(AssemblyVersion))
-                {
                     MessageBox.Show(
-                        "DDR5 support is experimental and Advanced mode is not supported yet."
-                            + Environment.NewLine
-                            + Environment.NewLine
-                            + "You can still enable it in Tools -> Options, but it will most probably fail."
-                            + Environment.NewLine
-                            + Environment.NewLine
-                            + "If you're not able to turn off the Advanced mode from the UI, edit settings.xml manually and set AdvancedMode to 'false'. "
-                            + "You can also delete settings.xml file and it will be regenerated on next application launch.",
-                        "Limited Support",
+                        "CPU model is not supported.\nPlease run a debug report and send to the developer.",
+                        "Unsupported CPU Model",
                         MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                    settings.AdvancedMode = false;
-                    settings.NotifiedRembrandt = AssemblyVersion;
-                    settings.Save();
-                }*/
+                        MessageBoxImage.Warning
+                    );
+                }
+                /* else if (cpu.info.codeName.Equals(Cpu.CodeName.Rembrandt) && !settings.NotifiedRembrandt.Equals(AssemblyVersion))
+                 {
+                     MessageBox.Show(
+                         "DDR5 support is experimental and Advanced mode is not supported yet."
+                             + Environment.NewLine
+                             + Environment.NewLine
+                             + "You can still enable it in Tools -> Options, but it will most probably fail."
+                             + Environment.NewLine
+                             + Environment.NewLine
+                             + "If you're not able to turn off the Advanced mode from the UI, edit settings.xml manually and set AdvancedMode to 'false'. "
+                             + "You can also delete settings.xml file and it will be regenerated on next application launch.",
+                         "Limited Support",
+                         MessageBoxButton.OK,
+                         MessageBoxImage.Information);
+                     settings.AdvancedMode = false;
+                     settings.NotifiedRembrandt = AssemblyVersion;
+                     settings.Save();
+                 }*/
 
                 IconSource = GetIcon("pack://application:,,,/ZenTimings;component/Resources/ZenTimings2022.ico", 16);
                 _notifyIcon = GetTrayIcon();
@@ -212,7 +217,7 @@ namespace ZenTimings
         private void ReadChannelsInfo()
         {
             int dimmIndex = 0;
-            int channelsPerDimm = MEMCFG.Type >= MemType.DDR5 ? 2 : 1;
+            uint channelsPerDimm = MEMCFG.Type >= MemType.DDR5 ? 2u : 1u;
 
             // Get the offset by probing the IMC0 to IMC7
             // It appears that offsets 0x80 and 0x84 are DIMM config registers
@@ -220,9 +225,9 @@ namespace ZenTimings
             // 0x50000
             // offset 0, bit 0 when set to 1 means DIMM1 is installed
             // offset 8, bit 0 when set to 1 means DIMM2 is installed
-            for (int i = 0; i < 8 * channelsPerDimm; i += channelsPerDimm)
+            for (uint i = 0; i < 8u * channelsPerDimm; i += channelsPerDimm)
             {
-                uint channelOffset = (uint)i << 20;
+                uint channelOffset = i << 20;
                 bool channel = Utils.GetBits(cpu.ReadDword(channelOffset | 0x50DF0), 19, 1) == 0;
                 bool dimm1 = Utils.GetBits(cpu.ReadDword(channelOffset | 0x50000), 0, 1) == 1;
                 bool dimm2 = Utils.GetBits(cpu.ReadDword(channelOffset | 0x50008), 0, 1) == 1;
@@ -426,7 +431,7 @@ namespace ZenTimings
                     {
                         // throw new Exception("Could not get memory controller config");
                         // Use AOD table as an alternative path for now
-                        BMC.Table = cpu.info.aod.Table.rawAodTable;
+                        BMC.Table = cpu.info.aod.Table.RawAodTable;
                     }
                     else
                     {
@@ -512,14 +517,15 @@ namespace ZenTimings
                 }
                 else
                 {
-                    if (Utils.AllZero(cpu.info.aod.Table.rawAodTable))
+                    if (cpu.info.aod == null || Utils.AllZero(cpu.info.aod.Table.RawAodTable))
                         return;
 
-                    AOD.AodData Data = cpu.info.aod.Table.Data;
+                    AodData Data = cpu.info.aod.Table.Data;
 
                     labelMemVdd.IsEnabled = true;
                     labelMemVddq.IsEnabled = true;
                     labelMemVpp.IsEnabled = true;
+                    labelApuVddio.IsEnabled = true;
 
                     labelProcODT.IsEnabled = true;
                     labelProcCaDs.IsEnabled = true;
@@ -534,6 +540,7 @@ namespace ZenTimings
                     textBoxMemVddio.Text = $"{Data.MemVddio / 1000.0:F4}V";
                     textBoxMemVddq.Text = $"{Data.MemVddq / 1000.0:F4}V";
                     textBoxMemVpp.Text = $"{Data.MemVpp / 1000.0:F4}V";
+                    textBoxApuVddio.Text = $"{Data.ApuVddio / 1000.0:F4}V";
 
                     textBoxProcODT.Text = AOD.GetProcODTString(Data.ProcODT);
                     textBoxCadBusDrvStren.Text = AOD.GetCadBusDrvStrenString(Data.CadBusDrvStren);
@@ -735,7 +742,7 @@ namespace ZenTimings
 
         private void SetFrequencyString()
         {
-            if (cpu.powerTable.MCLK > 0)
+            if (cpu.powerTable != null && cpu.powerTable.MCLK > 0)
             {
                 MEMCFG.Frequency = cpu.powerTable.MCLK * 2;
             }
@@ -745,7 +752,7 @@ namespace ZenTimings
         {
             if (cpu.powerTable == null || cpu.powerTable.DramBaseAddress == 0)
             {
-                HandleError("Could not initialize power table.\nClose the application and try again.");
+                HandleError("Could not initialize power table.\n\nClose the application and try again. If the issue persists, you might want to try a system restart.");
                 return false;
             }
 
@@ -924,8 +931,25 @@ namespace ZenTimings
             if (settings.SaveWindowPosition)
             {
                 WindowStartupLocation = WindowStartupLocation.Manual;
-                Left = settings.WindowLeft;
-                Top = settings.WindowTop;
+
+                // Get the current screen bounds
+                System.Windows.Forms.Screen screen = System.Windows.Forms.Screen.FromHandle(new System.Windows.Interop.WindowInteropHelper(this).Handle);
+                System.Drawing.Rectangle screenBounds = screen.Bounds;
+
+                // Check if the saved window position is outside the screen bounds
+                if (settings.WindowLeft < screenBounds.Left || settings.WindowLeft + Width > screenBounds.Right ||
+                    settings.WindowTop < screenBounds.Top || settings.WindowTop + Height > screenBounds.Bottom)
+                {
+                    // Reset the window position to a default value
+                    Left = (screenBounds.Width - Width) / 2 + screenBounds.Left;
+                    Top = (screenBounds.Height - Height) / 2 + screenBounds.Top;
+                }
+                else
+                {
+                    // Set the window position to the saved values
+                    Left = settings.WindowLeft;
+                    Top = settings.WindowTop;
+                }
             }
 
             SetWindowTitle();
@@ -1025,7 +1049,6 @@ namespace ZenTimings
             HwndSource source = HwndSource.FromHwnd(handle);
 
             source?.AddHook(WndProc);
-
 #if !DEBUG
             if (!settings.NotifiedChangelog.Equals(AssemblyVersion))
             {
@@ -1107,10 +1130,7 @@ namespace ZenTimings
 
         private void AdonisWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (siWnd != null)
-            {
-                siWnd.Close();
-            }
+            siWnd?.Close();
 
             if (settings.SaveWindowPosition)
             {
